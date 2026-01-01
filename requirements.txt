@@ -1,0 +1,8 @@
+mlflow==2.12.2
+typing_extensions>=4.10.0
+pydantic<2.0
+scikit-learn
+pandas
+numpy
+matplotlib
+seaborn
