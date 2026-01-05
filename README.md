@@ -616,180 +616,209 @@ and version control were handled in a structured, auditable, and production-alig
 <h2>5. CI/CD, Deployment & Monitoring</h2>
 
 <p>
-This project adopts a <strong>pragmatic and industry-aligned CI/CD strategy</strong> that balances
-automation, control, and reproducibility. Rather than attempting full end-to-end automation
-without adequate safeguards, the pipeline is deliberately designed to automate
-<strong>code validation and system correctness</strong>, while keeping
-<strong>model training and promotion under controlled execution</strong>.
-</p>
-
-<h3>5.1 Continuous Integration (CI) Strategy</h3>
-
-<p>
-Continuous Integration was implemented using <strong>GitHub Actions</strong> to automatically
-validate every code change pushed to the repository. The primary objective of the CI pipeline
-is to ensure that the codebase remains stable, testable, and production-ready at all times.
+This project adopts a pragmatic and industry-aligned approach to Continuous Integration, deployment, and
+operational monitoring. Rather than enforcing full automation at the cost of stability and traceability,
+the system deliberately separates <strong>code validation</strong>, <strong>model training</strong>, and
+<strong>runtime monitoring</strong> into well-defined stages.
 </p>
 
 <p>
-The CI workflow performs the following steps on each commit:
+<strong>Continuous Integration (CI)</strong> was implemented using <strong>GitHub Actions</strong> to ensure
+that every code change undergoes automated validation before being merged. The CI pipeline focuses on:
 </p>
 
 <ul>
-  <li>Source code checkout</li>
-  <li>Python environment setup with pinned dependencies</li>
-  <li>Static dependency validation</li>
-  <li>Execution of unit tests using <code>pytest</code></li>
-  <li>Verification that the training script executes without runtime failures</li>
+  <li>Dependency installation and environment validation</li>
+  <li>Unit testing for data loading, preprocessing, and training scripts</li>
+  <li>Early detection of breaking changes in the ML pipeline</li>
 </ul>
 
 <p>
-Importantly, the CI pipeline <strong>does not perform full model training</strong>.
-This design decision was made intentionally and reflects common industry practice.
-Training machine learning models is computationally expensive, data-dependent,
-and often unsuitable for execution on every source code change.
+It is important to note that <strong>model training and MLflow experiment logging were intentionally excluded
+from automated CI execution</strong>. This design choice was made to avoid uncontrolled experiment creation,
+resource exhaustion, and non-deterministic training behavior during frequent code commits.
+Such separation reflects <strong>real-world MLOps practices</strong>, where training pipelines are typically
+triggered through controlled workflows (manual, scheduled, or data-driven triggers) rather than every code push.
+</p>
+
+<hr/>
+
+<h3>5.1 Containerization Strategy</h3>
+
+<p>
+The inference service was containerized using <strong>Docker</strong> to ensure environment consistency,
+dependency isolation, and reproducible runtime behavior across systems.
+The Docker image encapsulates the FastAPI application, trained model artifacts, and required dependencies.
 </p>
 
 <p>
-Instead, the CI pipeline focuses on ensuring <em>trainability</em> —
-that the training pipeline can execute successfully when triggered —
-while actual training runs are executed in controlled environments
-where data versions, compute availability, and experiment tracking
-can be carefully managed.
+The following command was used to build the Docker image:
 </p>
 
-<h3>5.2 Continuous Deployment (CD) Scope and Limitations</h3>
+<pre><code>
+docker build -t heart-disease-api .
+</code></pre>
 
 <p>
-Full Continuous Deployment (CD) — where every code change automatically triggers
-model retraining, container rebuild, and production rollout — was evaluated but
-intentionally not implemented as part of this academic project.
+Once built, the container was executed locally with explicit port mapping:
 </p>
+
+<pre><code>
+docker run -d --name heart-disease-api -p 8000:8000 heart-disease-api
+</code></pre>
 
 <p>
-The reasons for this decision include:
+Successful execution of the container confirms that the inference service can operate independently
+of the host environment, which is a fundamental requirement for scalable deployment.
 </p>
-
-<ul>
-  <li>Model performance depends primarily on data changes, not code changes alone</li>
-  <li>Uncontrolled retraining can lead to frequent, unnecessary model churn</li>
-  <li>Academic infrastructure typically lacks scalable compute for automated retraining</li>
-  <li>Healthcare-related models require explicit validation before deployment</li>
-</ul>
-
-<p>
-In real-world MLOps systems, model deployment is often governed by
-<strong>human-in-the-loop approval</strong>, scheduled retraining,
-or data-drift-triggered pipelines rather than blind automation.
-The approach adopted in this project closely mirrors those practices.
-</p>
-
-<p>
-Nevertheless, the system is designed such that full CD automation can be added
-in the future by integrating:
-</p>
-
-<ul>
-  <li>Scheduled training pipelines (e.g., cron-based workflows)</li>
-  <li>Data drift detection mechanisms</li>
-  <li>Automated model evaluation gates</li>
-  <li>Conditional deployment approvals</li>
-</ul>
-
-<h3>5.3 Containerization and Deployment</h3>
-
-<p>
-The trained model is deployed as a <strong>containerized inference service</strong>
-using Docker. Containerization ensures runtime consistency across environments
-and eliminates dependency mismatches between development, testing, and deployment.
-</p>
-
-<p>
-The Docker image encapsulates:
-</p>
-
-<ul>
-  <li>The FastAPI inference application</li>
-  <li>The exported MLflow-trained model artifact</li>
-  <li>All runtime dependencies</li>
-</ul>
-
-<p>
-This containerized service is deployed on <strong>Kubernetes</strong>
-using Docker Desktop’s local Kubernetes cluster.
-Kubernetes provides orchestration capabilities such as service discovery,
-replica management, and fault isolation, even in a local deployment context.
-</p>
-
-<p><strong>Deployment Evidence</strong></p>
 
 <img src="images/deploy_01_docker_build.png" width="900"/><br/><br/>
+<img src="images/deploy_02_docker_ps.png" width="900"/>
+
+<hr/>
+
+<h3>5.2 Kubernetes Deployment</h3>
+
 <p>
-The above screenshot confirms successful Docker image creation for the inference service.
+To simulate a production-like orchestration environment, the Dockerized inference service was deployed
+on <strong>Kubernetes (Docker Desktop Kubernetes)</strong>.
+Kubernetes enables container scheduling, service exposure, and lifecycle management, making it suitable
+for scalable ML inference workloads.
 </p>
 
-<img src="images/deploy_02_docker_ps.png" width="900"/><br/><br/>
 <p>
-This screenshot verifies that the container is running locally with the correct port exposure.
+The following Kubernetes commands were used to validate deployment status:
+</p>
+
+<pre><code>
+kubectl get pods
+kubectl get services
+</code></pre>
+
+<p>
+The application was exposed using a <strong>NodePort service</strong>, allowing external access to the
+FastAPI inference endpoint.
 </p>
 
 <img src="images/deploy_03_k8s_pods.png" width="900"/><br/><br/>
-<p>
-This screenshot demonstrates that the application pod is running successfully in Kubernetes.
-</p>
+<img src="images/deploy_04_k8s_service.png" width="900"/>
 
-<img src="images/deploy_04_k8s_service.png" width="900"/><br/><br/>
-<p>
-This screenshot shows the Kubernetes service configuration exposing the inference API.
-</p>
+<hr/>
 
-<img src="images/deploy_05_api_prediction.png" width="900"/><br/><br/>
-<p>
-This screenshot confirms successful end-to-end inference through the deployed API.
-</p>
-
-<h3>5.4 Monitoring and Observability</h3>
+<h3>5.3 API Validation</h3>
 
 <p>
-Operational monitoring is a critical component of production machine learning systems,
-as model behavior can degrade over time due to changing input distributions,
-usage patterns, or system load.
-</p>
-
-<p>
-To address this, the inference service exposes a <code>/metrics</code> endpoint
-instrumented with Prometheus-compatible metrics. These metrics capture:
+After deployment, the inference service was validated end-to-end by invoking the prediction endpoint
+using an external client (Postman). This step verifies:
 </p>
 
 <ul>
-  <li>Total number of API requests</li>
-  <li>Request latency distributions</li>
-  <li>Endpoint-level traffic patterns</li>
+  <li>Successful request handling by the FastAPI application</li>
+  <li>Correct model loading and inference execution</li>
+  <li>JSON-based response consistency</li>
 </ul>
 
+<img src="images/deploy_05_api_prediction.png" width="900"/>
+
+<hr/>
+
+<h3>5.4 Monitoring & Observability Stack</h3>
+
 <p>
-<strong>Prometheus</strong> is configured to scrape these metrics periodically,
-while <strong>Grafana</strong> provides visualization dashboards to monitor
-system health and performance trends over time.
+Operational monitoring was implemented using <strong>Prometheus</strong> and <strong>Grafana</strong>
+to provide visibility into runtime behavior, resource usage, and API performance.
+This monitoring layer is critical for detecting performance degradation, traffic spikes,
+and potential failure scenarios post-deployment.
+</p>
+
+<p>
+Prometheus was executed as a Docker container using the following command:
+</p>
+
+<pre><code>
+docker run -d --name prometheus \
+  -p 9090:9090 \
+  -v $(pwd)/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml \
+  prom/prometheus
+</code></pre>
+
+<p>
+Grafana was executed as a Docker container using:
+</p>
+
+<pre><code>
+docker run -d --name grafana \
+  -p 3000:3000 \
+  grafana/grafana
+</code></pre>
+
+<p>
+Prometheus was configured to scrape application-level metrics exposed by the FastAPI
+<code>/metrics</code> endpoint, while Grafana was used to visualize request count,
+latency distributions, and overall service health.
 </p>
 
 <img src="images/monitor_01_prometheus_targets.png" width="900"/><br/><br/>
-<p>
-This screenshot verifies that Prometheus is successfully scraping metrics from the service.
-</p>
+<h4>Prometheus Metrics Validation</h4>
 
-<img src="images/monitor_04_grafana_dashboard.png" width="900"/><br/><br/>
 <p>
-This screenshot demonstrates real-time visualization of API traffic and latency
-through Grafana dashboards.
+While the Prometheus Targets page confirms that the inference service is reachable and being scraped,
+it does not, by itself, prove the existence of meaningful application-level metrics.
+Therefore, metric query validation was performed directly from the Prometheus expression browser.
 </p>
 
 <p>
-Although advanced drift detection was not implemented in this phase,
-the monitoring foundation established here enables future extensions
-such as input distribution tracking, performance regression alerts,
-and automated retraining triggers.
+The following screenshot demonstrates successful querying of application-exposed metrics, confirming:
 </p>
+
+<ul>
+  <li>HTTP request counters emitted by the FastAPI service</li>
+  <li>Availability of time-series data points</li>
+  <li>Correct integration between application instrumentation and Prometheus scraping</li>
+</ul>
+
+<p>
+Example queries executed include:
+</p>
+
+<pre><code>
+http_requests_total
+api_request_latency_seconds_count
+api_request_latency_seconds_bucket
+</code></pre>
+
+<p>
+The presence of these metrics validates that the monitoring instrumentation is functional and that
+runtime behavior can be analyzed quantitatively rather than inferred indirectly.
+</p>
+
+<img src="images/monitor_02_prometheus_metrics.png" width="900"/>
+
+<hr/>
+<p>Grafana Dashboard for Heart-Disease Prediction Monitoring</p>
+<img src="images/monitor_04_grafana_dashboard.png" width="900"/>
+
+<hr/>
+
+<h3>5.5 Runtime Container Validation (Docker Desktop)</h3>
+
+<p>
+The following screenshot provides consolidated evidence of all runtime components executing
+simultaneously within Docker Desktop, including:
+</p>
+
+<ul>
+  <li>The heart disease inference API container</li>
+  <li>Prometheus monitoring service</li>
+  <li>Grafana visualization service</li>
+</ul>
+
+<p>
+This view confirms correct container orchestration, port exposure, and low resource utilization,
+demonstrating that the system is stable under normal operating conditions.
+</p>
+
+<img src="images/docker_desktop_runtime_overview.png" width="900"/>
 
 <hr/>
 
