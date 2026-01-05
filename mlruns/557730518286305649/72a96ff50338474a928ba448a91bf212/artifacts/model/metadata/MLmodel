@@ -1,3 +1,4 @@
+artifact_path: model
 flavors:
   python_function:
     env:
@@ -14,5 +15,6 @@ flavors:
     sklearn_version: 1.6.1
 mlflow_version: 2.12.1
 model_size_bytes: 3190
-model_uuid: 75ffbeb174f8454dae365fe271ce8cf3
-utc_time_created: '2026-01-05 05:42:45.533229'
+model_uuid: 03070b61ee834653a7b7373f6478de08
+run_id: 72a96ff50338474a928ba448a91bf212
+utc_time_created: '2026-01-05 05:38:28.460884'
