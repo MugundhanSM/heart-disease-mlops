@@ -213,7 +213,7 @@ targets.
 </p>
 
 <pre>
-git clone https://github.com/&lt;your-username&gt;/heart-disease-mlops.git
+git clone https://github.com/MugundhanSM/heart-disease-mlops.git
 cd heart-disease-mlops
 python -m venv venv
 source venv/bin/activate        # Windows: venv\Scripts\activate
