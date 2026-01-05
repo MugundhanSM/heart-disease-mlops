@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1767590622157
+current_stage: None
+description: null
+last_updated_timestamp: 1767590622157
+name: HeartDiseaseClassifier
+run_id: 414aef66a4f94e93b396aeec0bfe4569
+run_link: null
+source: file:///C:\Users\SESA661370\Documents\MLOps/mlruns/557730518286305649/414aef66a4f94e93b396aeec0bfe4569/artifacts/model
+status: READY
+status_message: null
+storage_location: file:///C:\Users\SESA661370\Documents\MLOps/mlruns/557730518286305649/414aef66a4f94e93b396aeec0bfe4569/artifacts/model
+user_id: null
+version: 9

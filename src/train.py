@@ -1,7 +1,9 @@
+import os
 from pathlib import Path
 import pandas as pd
 import mlflow
 import mlflow.sklearn
+import os
 
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
@@ -16,7 +18,12 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, roc_a
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = PROJECT_ROOT / "data" / "processed" / "heart_disease_cleaned.csv"
 
-mlflow.set_tracking_uri(f"file:///{PROJECT_ROOT}/mlruns")
+MLFLOW_TRACKING_URI = os.getenv(
+    "MLFLOW_TRACKING_URI",
+    "file:./mlruns"
+)
+
+mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
 mlflow.set_experiment("Heart Disease Classification")
 
 # --------------------------------------------------
