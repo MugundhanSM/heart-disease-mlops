@@ -1,0 +1,15 @@
+artifact_uri: file:///C:\Users\SESA661370\Documents\MLOps/mlruns/557730518286305649/5f530a60ca174396b9712be47503ec21/artifacts
+end_time: 1766995921061
+entry_point_name: ''
+experiment_id: '557730518286305649'
+lifecycle_stage: active
+run_id: 5f530a60ca174396b9712be47503ec21
+run_name: Logistic Regression
+run_uuid: 5f530a60ca174396b9712be47503ec21
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1766995900240
+status: 3
+tags: []
+user_id: SESA661370

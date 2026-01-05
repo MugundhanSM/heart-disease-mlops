@@ -91,3 +91,24 @@ with mlflow.start_run(run_name="Final Logistic Regression Model"):
     )
 
 print("Training completed successfully.")
+
+# --------------------------------------------------
+# Export model for containerized inference
+# --------------------------------------------------
+import mlflow.sklearn
+from pathlib import Path
+
+EXPORT_PATH = PROJECT_ROOT / "model_artifact"
+
+# Remove old export if exists (optional but clean)
+if EXPORT_PATH.exists():
+    import shutil
+    shutil.rmtree(EXPORT_PATH)
+
+mlflow.sklearn.save_model(
+    sk_model=model,
+    path=str(EXPORT_PATH)
+)
+
+print(f"Model exported to {EXPORT_PATH}")
+

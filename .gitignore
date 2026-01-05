@@ -1,12 +1,13 @@
 # Python
 __pycache__/
 *.pyc
+.pytest_cache/
 
 # Jupyter
 .ipynb_checkpoints/
 
 # MLflow
-mlruns/
+#mlruns/
 
 # OS
 .DS_Store

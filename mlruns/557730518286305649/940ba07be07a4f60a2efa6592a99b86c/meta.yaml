@@ -1,0 +1,15 @@
+artifact_uri: file:///C:\Users\SESA661370\Documents\MLOps/mlruns/557730518286305649/940ba07be07a4f60a2efa6592a99b86c/artifacts
+end_time: 1766995568612
+entry_point_name: ''
+experiment_id: '557730518286305649'
+lifecycle_stage: active
+run_id: 940ba07be07a4f60a2efa6592a99b86c
+run_name: Random Forest
+run_uuid: 940ba07be07a4f60a2efa6592a99b86c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1766995545766
+status: 3
+tags: []
+user_id: SESA661370

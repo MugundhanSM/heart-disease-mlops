@@ -1,0 +1,15 @@
+artifact_uri: file:///C:\Users\SESA661370\Documents\MLOps/mlruns/557730518286305649/5118112a32da4d82baedfb51a0ec24af/artifacts
+end_time: 1767276567217
+entry_point_name: ''
+experiment_id: '557730518286305649'
+lifecycle_stage: active
+run_id: 5118112a32da4d82baedfb51a0ec24af
+run_name: Final Logistic Regression Model
+run_uuid: 5118112a32da4d82baedfb51a0ec24af
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1767276556192
+status: 3
+tags: []
+user_id: Mugundhan-BITS
