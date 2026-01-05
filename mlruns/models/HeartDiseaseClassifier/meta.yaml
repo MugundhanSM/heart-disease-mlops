@@ -1,6 +1,5 @@
-aliases:
-  production: '1'
-creation_timestamp: 1767276567172
+aliases: {}
+creation_timestamp: 1767619557531
 description: null
-last_updated_timestamp: 1767591765246
+last_updated_timestamp: 1767621185724
 name: HeartDiseaseClassifier

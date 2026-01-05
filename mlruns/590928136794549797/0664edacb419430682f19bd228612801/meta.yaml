@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/SESA661370/Documents/MLOps/notebooks/../mlruns/590928136794549797/0664edacb419430682f19bd228612801/artifacts
+end_time: 1767621344287
+entry_point_name: ''
+experiment_id: '590928136794549797'
+lifecycle_stage: active
+run_id: 0664edacb419430682f19bd228612801
+run_name: Random Forest
+run_uuid: 0664edacb419430682f19bd228612801
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1767621335391
+status: 3
+tags: []
+user_id: Mugundhan-BITS
