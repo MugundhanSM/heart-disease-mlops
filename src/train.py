@@ -17,6 +17,9 @@ from sklearn.metrics import (
     roc_auc_score,
 )
 
+import warnings
+warnings.filterwarnings("ignore")
+
 # ==================================================
 # CI detection 
 # ==================================================
@@ -103,6 +106,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 # ==================================================
 # Training
 # ==================================================
+print("Starting model training...")
 model.fit(X_train, y_train)
 
 y_pred = model.predict(X_test)
