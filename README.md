@@ -65,6 +65,26 @@ M.Tech (Master of Technology) – BITS Pilani
         </ul>
       </td>
     </tr>
+        <tr>
+      <td><strong>GitHub Repository</strong></td>
+      <td>
+        <a href="https://github.com/MugundhanSM/heart-disease-mlops"
+           target="_blank"
+           style="color:#4fc3f7; text-decoration:none; font-weight:bold;">
+           https://github.com/MugundhanSM/heart-disease-mlops
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Demo Video</strong></td>
+      <td>
+        <a href="https://drive.google.com/your-video-link"
+           target="_blank"
+           style="color:#81c784; text-decoration:none; font-weight:bold;">
+           End-to-End Pipeline Demonstration (Google Drive)
+        </a>
+      </td>
+    </tr>
   </table>
 </div>
 
