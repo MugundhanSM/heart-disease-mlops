@@ -720,7 +720,7 @@ The following command was used to build the Docker image:
 </p>
 
 <pre><code>
-docker build -t heart-disease-api .
+docker build -t heart-disease-api -f docker/Dockerfile .
 </code></pre>
 
 <p>
