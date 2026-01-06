@@ -24,6 +24,50 @@ M.Tech (Master of Technology) – BITS Pilani
 
 <hr/>
 
+<div style="
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  padding: 25px 35px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+">
+
+  <h2 style="color:#ffffff; margin-bottom: 18px;">
+    Academic & Project Information
+  </h2>
+
+  <table width="100%" cellpadding="10" cellspacing="0"
+         style="color:#eaeaea; font-size:16px; border-collapse: collapse;">
+    <tr>
+      <td width="30%"><strong>Course Name</strong></td>
+      <td>MLOps</td>
+    </tr>
+    <tr>
+      <td><strong>Institution</strong></td>
+      <td>BITS Pilani</td>
+    </tr>
+    <tr>
+      <td><strong>Assignment Number</strong></td>
+      <td>Assignment – 1</td>
+    </tr>
+    <tr>
+      <td><strong>Group Number</strong></td>
+      <td>Group – 8</td>
+    </tr>
+    <tr>
+      <td valign="top"><strong>Contributors</strong></td>
+      <td>
+        <ul style="margin:0; padding-left:18px;">
+          <li>Mugundhan S.M - 2024AA05272</li>
+          <li>SHUKLA YASH ANAND . – 2024AA05090</li>
+          <li>NITHIN N . – 2024AA05913</li>
+          <li>MEGHANA K M . – 2024AB05011</li>
+          <li>NAVEEN KUMAR . – 2024AA05911</li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+</div>
+
 <h2>1. Introduction</h2>
 
 <p>
