@@ -78,7 +78,7 @@ M.Tech (Master of Technology) – BITS Pilani
     <tr>
       <td><strong>Demo Video</strong></td>
       <td>
-        <a href="https://drive.google.com/your-video-link"
+        <a href="https://drive.google.com/drive/folders/17L3e5dHty7MleZsyrxWptJF_ENULOgHm?usp=sharing"
            target="_blank"
            style="color:#81c784; text-decoration:none; font-weight:bold;">
            End-to-End Pipeline Demonstration (Google Drive)
